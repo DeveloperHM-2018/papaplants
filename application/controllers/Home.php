@@ -36,7 +36,7 @@ class Home extends CI_Controller
 		$data['sub_category'] = $this->CommonModal->getRowByMoreId('category', ['is_visible' => '0']);
 		$data['cat'] = $this->CommonModal->getSingleRowById('category', ['meta_url' => $category]);
 
-		$data['title'] = $data['cat']['name'] . ' plants | PapaPlants';
+		$data['title'] = @$data['cat']['name'] . ' plants | PapaPlants';
 		$data['description'] = 'Discover a world of natural beauty at PapaPlants - your ultimate destination for a diverse selection of premium plants. Explore a wide range of indoor and outdoor plants, expertly curated for plant enthusiasts of all levels. Transform your space with vibrant greenery while contributing to a cleaner, greener environment. Shop now and bring the serenity of nature into your life with PapaPlants.';
 		$data['keywords'] = 'Plants for sale, Indoor plants, Outdoor plants, Plant care, Garden essentials, Sustainable gardening, Green living, Eco-friendly plants, Plant enthusiasts, Premium plants, Botanical decor, Natural beauty, Gardening supplies, Plant variety, Horticulture, Organic gardening, Plant lovers, Urban gardening, Biodiversity, Plant aesthetics';
 		$data['author'] = 'PapaPlants - connecting nature';
@@ -99,11 +99,12 @@ class Home extends CI_Controller
 	{
 		$data['category'] = $this->CommonModal->getRowByMoreId('category', ['is_visible' => '1', 'parent_id' => '0']);
 		$data['other_category'] = $this->CommonModal->getRowByMoreId('category', ['is_visible' => '0', 'parent_id' => '0']);
-		$data['product_desc'] = $this->CommonModal->getRowById('product', 'meta_url', $product_id);
-		$data['pro_category'] = $this->CommonModal->runQuery("SELECT * FROM `pp_category` JOIN `pp_product_category` ON `pp_category`.`id`=`pp_product_category`.`category_id` WHERE  `pp_product_category`.`product_id`= '" . $product_id . "'");
-		$data['pro_image'] = $this->CommonModal->getRowByMoreId('product_images', array('product_id' => $product_id));
+		$data['product_desc'] = $this->CommonModal->getSingleRowById('product', ['meta_url' => $product_id]);
+
+		$data['pro_category'] = $this->CommonModal->runQuery("SELECT * FROM `pp_category` JOIN `pp_product_category` ON `pp_category`.`id`=`pp_product_category`.`category_id` WHERE  `pp_product_category`.`product_id`= '" . $data['product_desc']['id'] . "'");
+		$data['pro_image'] = $this->CommonModal->getRowByMoreId('product_images', array('product_id' => $data['product_desc']['id']));
 		$data['policylinks'] = $this->CommonModal->getAllRows('policy');
-		$data['title'] = $data['product_desc'][0]['name'] . ' | Papaplants';
+		$data['title'] = $data['product_desc']['name'] . ' | Papaplants';
 		$data['description'] = 'Discover a world of natural beauty at PapaPlants - your ultimate destination for a diverse selection of premium plants. Explore a wide range of indoor and outdoor plants, expertly curated for plant enthusiasts of all levels. Transform your space with vibrant greenery while contributing to a cleaner, greener environment. Shop now and bring the serenity of nature into your life with PapaPlants.';
 		$data['keywords'] = 'Plants for sale, Indoor plants, Outdoor plants, Plant care, Garden essentials, Sustainable gardening, Green living, Eco-friendly plants, Plant enthusiasts, Premium plants, Botanical decor, Natural beauty, Gardening supplies, Plant variety, Horticulture, Organic gardening, Plant lovers, Urban gardening, Biodiversity, Plant aesthetics';
 		$data['author'] = 'PapaPlants - connecting nature';
@@ -233,30 +234,44 @@ class Home extends CI_Controller
 	{
 		$limit = $this->input->post('limit');
 		$offset = $this->input->post('offset');
+		$searchkeywords = $this->input->post('searchkeywords');
 		$category = ((isset($_POST['category'])) ? $_POST['category'] : '');
 		$subcategory = ((isset($_POST['subcategory'])) ? $_POST['subcategory'] : '');
-		$query = "SELECT *,`pp_product`.`id` as id,`pp_product_category`.`id` as 'catid' FROM `pp_product` ";
+		if ($category != '') {
+			$query = "SELECT *,`pp_product`.`id` as id,`pp_product_category`.`id` as 'catid' FROM `pp_product` ";
+		} else {
+			$query = "SELECT * FROM `pp_product` ";
+		}
+
 		if (($category != '') || ($subcategory != '')) {
-			$query .= " INNER JOIN  `pp_product_category` ON `pp_product`.`id`=`pp_product_category`.`product_id` WHERE ";
+			$query .= " INNER JOIN  `pp_product_category` ON `pp_product`.`id`=`pp_product_category`.`product_id`  ";
 		}
 		if (($category != '') && ($subcategory != '')) {
 			$merged_array = array_merge($category, $subcategory);
-			$query .= "`pp_product_category`.`category_id` IN('" . implode("','", $merged_array) . "')";
+			$query_row[] = "`pp_product_category`.`category_id` IN('" . implode("','", $merged_array) . "')";
 		} elseif ($category != '') {
 			$merged_array = $category;
-			$query .= " `pp_product_category`.`category_id` IN('" . implode("','", $merged_array) . "')";
+			$query_row[] = " `pp_product_category`.`category_id` IN('" . implode("','", $merged_array) . "')";
 		} elseif ($subcategory != '') {
 			$merged_array = $subcategory;
-			$query .= " `pp_product_category`.`category_id` IN('" . implode("','", $merged_array) . "')";
+			$query_row[] = " `pp_product_category`.`category_id` IN('" . implode("','", $merged_array) . "')";
 		} else {
 		}
-		$query .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+		if ($searchkeywords != '') {
+			$query_row[] = " `pp_product`.`name` LIKE '%" . $searchkeywords . "%' ";
+		}
+		$query .= ((count($query_row) > 0) ? ' WHERE ' . implode(' AND ', $query_row) : '') . ' ORDER BY  `pp_product`.`id` DESC';
+		if ($searchkeywords != '') {
+		} else {
+			$query .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+		}
 
 		$data['all_data'] = $this->CommonModal->runQuery($query);
 
 		$data_result['result'] = $this->load->view('single_product', $data, true);
 		$data_result['offset'] = $offset  + $limit;
 		$data_result['query'] = $query;
+		$data_result['count'] = count($data['all_data']);
 		echo json_encode($data_result);
 	}
 	public function dashboard()

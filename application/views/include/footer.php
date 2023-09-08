@@ -1,5 +1,5 @@
 </main>
-<footer data-background="" class="footer1-bg" style="margin-top: 19px;">
+<footer data-background="" class="footer1-bg"  >
 	<section class="footer-area footer-area1 footer-area1-bg pt-55    <?= (current_url() == base_url() . 'checkout') ? 'd-none' : '' ?>">
 		<!-- <div class="footer-bg-shape">
 			<img src="assets/img/shape/pattern.png" alt="img not found">

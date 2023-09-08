@@ -67,7 +67,7 @@ function product_slide($product_info, $col = 3, $slider = false)
 			$img = getRowByMoreId('pp_product_images', array('product_id' => $product_info['id']));
 		?>
 			<div class="swiper-slide">
-				<div class="product-single">
+				<div class="product-single bg-white shadow">
 					<div class="product-thumb">
 						<a href="<?= base_url() ?><?= $product_info['meta_url'] ?>"><img src="<?= base_url() ?><?= $img[0]['image_file'] ?>" onerror="this.onerror=null; this.src='<?= base_url() ?>assets/images/aelo-vera.jpg'" alt="img not found"></a>
 						<div class="product-item-action">
@@ -200,9 +200,37 @@ function cart_page()
 	foreach ($ci->cart->contents() as $items) {
 		// if ($items['is_visible'] == 1) {
 	?>
-		<tr>
+		<hr class="my-4">
+
+		<div class="row mb-4 d-flex justify-content-between align-items-center">
+			<div class="col-md-2 col-lg-2 col-xl-2 col-3">
+				<img src="<?= setImage($items['image'], '/'); ?>" class="img-fluid rounded-3" alt="<?= $items['name']; ?> Papa plants">
+			</div>
+			<div class="col-md-3 col-lg-3 col-xl-3 col-9">
+				<h6 class="text-muted">Go green</h6>
+				<h6 class="text-black mb-0"><?= $items['name']; ?></h6>
+			</div>
+			<div class="col-md-3 col-lg-3 col-xl-2  col-6 d-flex">
+				<button class="btn btn-link addCart px-2" data-id="<?= $items['id'] ?>" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+					<i class="fas fa-minus"></i>
+				</button>
+
+				<input id="form1" min="0" name="quantity" value="<?= $items['qty'] ?>" type="number" class="form-control form-control-sm" />
+
+				<button class="btn btn-link addCart px-2" data-id="<?= $items['id'] ?>" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+					<i class="fas fa-plus"></i>
+				</button>
+			</div>
+			<div class="col-md-3 col-lg-2 col-xl-2  col-3 offset-lg-1">
+				<h6 class="mb-0"> &#8377; <?= $items['price'] ?></h6>
+			</div>
+			<div class="col-md-1 col-lg-1 col-xl-1  col-3 text-end">
+				<a href="javascript:void(0);" class="remove_cartitem" data-id="<?= $items['rowid'] ?>" class="text-muted"><i class="fas fa-times"></i></a>
+			</div>
+		</div>
+		<!-- <tr>
 			<td class="product-thumbnail">
-				<a href="#"><img src="<?= setImage($items['image'], '/'); ?>" alt="img"></a>
+				<a href="#"></a>
 			</td>
 			<td class="product-name">
 				<a href="#"><?= $items['name']; ?></a>
@@ -231,7 +259,7 @@ function cart_page()
 			<td class="product-remove">
 				<a href="#" class="remove_cartitem" data-id="<?= $items['rowid'] ?>"><i class="fa fa-times"></i></a>
 			</td>
-		</tr>
+		</tr> -->
 	<?php
 		// }
 	}

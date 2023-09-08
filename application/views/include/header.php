@@ -102,7 +102,7 @@
 							<?php
 							}
 							?>
-							<a href="javascript:void(0)" class="action-btn cart-btn d-none d-lg-inline-flex action-item-cart"><i class="fas fa-shopping-basket"></i></a>
+							<a href="javascript:void(0)" class="action-btn cart-btn   d-lg-inline-flex action-item-cart"><i class="fas fa-shopping-basket"></i></a>
 							<div class="menu-bar d-xl-none">
 								<a class="side-toggle" href="javascript:void(0)">
 									<div class="bar-icon">
@@ -139,8 +139,8 @@
 				</div>
 				<div class="mobile-menu d-xl-none fix"></div>
 				<div class="offset-widget offset_searchbar mb-30">
-					<form action="#" class="filter-search-input">
-						<input type="text" placeholder="Search keyword">
+					<form action="<?= base_url('products') ?>" method="get" class="filter-search-input">
+						<input type="text" name="search" placeholder="Search keyword">
 						<button type="submit"><i class="fal fa-search"></i></button>
 					</form>
 				</div>
@@ -195,9 +195,8 @@
 				<span>Subtotal :</span>
 				<span class="subtotal-price total_cart_amount"></span>
 			</div>
-			<div class="sidebar-action-btn">
-				<a href="<?= base_url('cart') ?>" class="fill-btn">View cart</a>
-				<a href="<?= base_url('checkout') ?>" class="border-btn">Checkout</a>
+			<div class="sidebar-action-btn" id="cart_btn">
+
 			</div>
 		</div>
 	</div>

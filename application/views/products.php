@@ -54,19 +54,13 @@
 				<!-- sidebar  -->
 				<div class="col-xl-3 col-lg-4 col-md-8">
 					<div class="blog-sidebar_wrapper mb-60">
-						<!--<div class="sidebar-widget sidebar-search mb-50">-->
-						<!--	<h4 class="sidebar-widget-title">Search Product</h4>-->
-						<!--	<div class="sidebar-search-form">-->
-						<!--		<input type="text" placeholder="Search your keyword..." />-->
-						<!--		<button><i class="fal fa-search"></i></button>-->
-						<!--	</div>-->
-						<!--</div>-->
-						<!-- <div class="sidebar-widget sidebar-category mb-50">
-							<h4 class="sidebar-widget-title">Categories</h4>
-							<div class="sidebar-category-list">
-
+						<div class="sidebar-widget sidebar-search mb-50">
+							<h4 class="sidebar-widget-title">Search Product</h4>
+							<div class="sidebar-search-form">
+								<input type="text" name="search" id="searchkeywords" placeholder="Search your keyword..." value="<?= @$_GET['search'] ?>" />
+								<button type="button" id="searchdata"><i class="fal fa-search"></i></button>
 							</div>
-						</div> -->
+						</div>
 						<div class="sidebar-widget sidebar-tags mb-50">
 							<h4 class="sidebar-widget-title">Plants By Type</h4>
 							<div class="sidebar-category-list">
@@ -135,19 +129,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
-		filter_data();
 
-		function filter_data() {
+		filter_data(0);
+
+		function filter_data(flag) {
 			// $('#filter_data').html('<div id="loading" style="" ></div>');
 			var action = 'fetch_data';
 			var category = get_filter('category');
 			var subcategory = get_filter('sub_category');
+			var searchkeywords = $('#searchkeywords').val();
 			$.ajax({
 				url: "<?= base_url('Home/filterData') ?>",
 				method: "POST",
 				data: {
 					category: category,
 					subcategory: subcategory,
+					searchkeywords: searchkeywords,
 					offset: $('#offset').val(),
 					limit: $('#limit').val()
 				},
@@ -176,11 +173,21 @@
 					// $("#filter_data").html(skelitons);
 				},
 				success: function(data) {
-					$('#filter_data').append(data.result)
+					if (flag == 0) {
+						$('#filter_data').append(data.result)
+					} else {
+						$('#filter_data').html(data.result)
+					}
 					$('#offset').val(data.offset)
 					if (data.result == '') {
 						$('#loadMoreBtn').hide();
 					}
+					if (data.count < 70) {
+						$('#loadMoreBtn').hide();
+					} else {
+						$('#loadMoreBtn').show();
+					}
+
 				}
 			});
 		}
@@ -193,11 +200,14 @@
 			return filter;
 		}
 		$('.common_selector').click(function() {
-			console.log('23');
-			filter_data();
+			filter_data(1);
 		});
 		$('#loadMoreBtn').click(function() {
-			filter_data();
+
+			filter_data(0);
+		});
+		$('#searchdata').click(function() {
+			filter_data(1);
 		});
 	});
 </script>

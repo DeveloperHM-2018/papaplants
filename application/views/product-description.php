@@ -13,8 +13,30 @@
 			<div class="row wow fadeInUp" data-wow-delay=".3s">
 				<div class="col-lg-6">
 					<div class="product-d-img-tab-wrapper mb-60">
+						<div class="product-d-img-tab mb-3">
+							<div class="tab-content" id="productDetailsTab">
+								<?php
+								$i = 0;
+								if (!empty($pro_image)) {
+									foreach ($pro_image as $row) {
+								?>
+										<div class="tab-pane fade <?= ($i == 0) ? 'active show' : '' ?>  " id="pro-<?= $i ?>" role="tabpanel" aria-labelledby="pro-1-tab">
+											<img class="active" src="<?= base_url(trim($row['image_file'])) ?>" onerror="this.onerror=null; this.src='<?= base_url() ?>assets/images/aelo-vera.jpg'" alt="img not found">
+										</div>
+									<?php
+										$i++;
+									}
+								} else {
+									?>
+									<div class="tab-pane fade <?= ($i == 0) ? 'active show' : '' ?>" id="pro-<?= $i ?>" role="tabpanel" aria-labelledby="pro-1-tab">
+										<img class="active" src="<?= base_url() ?>assets/images/aelo-vera.jpg" onerror="this.onerror=null; this.src='<?= base_url() ?>assets/images/aelo-vera.jpg'" alt="img not found">
+									</div>
+								<?php
+								}
+								?>
+							</div>
+						</div>
 						<div class="product-d-img-nav">
-
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
 								<?php
 								$i = 0;
@@ -42,30 +64,6 @@
 
 							</ul>
 						</div>
-						<div class="product-d-img-tab">
-							<div class="tab-content" id="productDetailsTab">
-								<?php
-								$i = 0;
-								if (!empty($pro_image)) {
-									foreach ($pro_image as $row) {
-								?>
-										<div class="tab-pane fade <?= ($i == 0) ? 'active show' : '' ?>  " id="pro-<?= $i ?>" role="tabpanel" aria-labelledby="pro-1-tab">
-											<img class="active" src="<?= base_url(trim($row['image_file'])) ?>" onerror="this.onerror=null; this.src='<?= base_url() ?>assets/images/aelo-vera.jpg'" alt="img not found">
-										</div>
-									<?php
-										$i++;
-									}
-								} else {
-									?>
-									<div class="tab-pane fade <?= ($i == 0) ? 'active show' : '' ?>" id="pro-<?= $i ?>" role="tabpanel" aria-labelledby="pro-1-tab">
-										<img class="active" src="<?= base_url() ?>assets/images/aelo-vera.jpg" onerror="this.onerror=null; this.src='<?= base_url() ?>assets/images/aelo-vera.jpg'" alt="img not found">
-									</div>
-								<?php
-								}
-								?>
-
-							</div>
-						</div>
 					</div>
 				</div>
 				<div class="col-lg-6">
@@ -80,9 +78,9 @@
 								echo '<div class="product-d-category">';
 								foreach ($pro_category as $category_row) {
 									$r[] = $category_row['name'];
-									$similar_cat_id[] = $category_row['product_id'];
+									$similar_cat_id[] = $category_row['category_id'];
 								}
-								echo implode(', ', $r);
+								echo implode('</div>  <div class="product-d-category"> ', $r);
 								echo '</div>';
 							}
 							?>
@@ -99,15 +97,15 @@
 							</div>
 						</div>
 						<br>
-						<h4 class="product-name"><?= $product_desc[0]['name'] ?></h4>
+						<h4 class="product-name"><?= $product_desc['name'] ?></h4>
 						<div class="product-price">
-							<span class="price-now">₹ <?= $product_desc[0]['price'] ?></span>
-							<!-- <span class="price-old">₹ <?= $product_desc[0]['discounted_price'] ?></span> -->
+							<span class="price-now">₹ <?= $product_desc['price'] ?></span>
+							<!-- <span class="price-old">₹ <?= $product_desc['discounted_price'] ?></span> -->
 						</div>
 						<span>
-							<?= str_replace('\n', '', $product_desc[0]['sdesc']) ?>
+							<?= str_replace('\n', '', $product_desc['sdesc']) ?>
 						</span>
-						<div class="product-quantity-cart mb-30">
+						<div class="product-quantity-cart mb-30 mt-3">
 							<div class="product-quantity-form">
 								<form action="#">
 									<button class="cart-minus">
@@ -119,21 +117,21 @@
 									</button>
 								</form>
 							</div>
-							<span class="fill-btn addCart" target="_blank" data-id="<?= $product_desc[0]['id'] ?>"><i class="fa fa-fa fa-shopping-cart" aria-hidden="true"></i>Add to cart</span>
+							<span class="fill-btn addCart" target="_blank" data-id="<?= $product_desc['id'] ?>"><i class="fa fa-fa fa-shopping-cart" aria-hidden="true"></i>Add to cart</span>
 						</div>
 						<div class="product-d-meta share mb-10">
 							<span>Share:</span>
 							<div class="social-links">
 								<ul>
 									<li>
-										<a href="https://www.facebook.com/sharer/sharer.php?u=<?= current_url() ?>&t=<?= $title ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Facebook"><i class="fab fa-facebook"></i></a>
+										<a href="https://www.facebook.com/sharer/sharer.php?u=<?= current_url() ?>&t=<?= $title ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Facebook"><i class="fab fa-facebook fs-3 text-success"></i></a>
 									</li>
 									<li>
-										<a href="https://www.linkedin.com/shareArticle?mini=true&url=<?= current_url() ?>&t=<?= $title ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Linkedin"><i class="fab fa-linkedin"></i></a>
+										<a href="https://www.linkedin.com/shareArticle?mini=true&url=<?= current_url() ?>&t=<?= $title ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Linkedin"><i class="fab fa-linkedin fs-3 text-success"></i></a>
 
 									</li>
 									<li>
-										<a href="whatsapp://send?text=<?= current_url() ?>" data-action="share/whatsapp/share" onClick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on whatsapp"><i class="fab fa-whatsapp"></i></a>
+										<a href="whatsapp://send?text=<?= current_url() ?>" data-action="share/whatsapp/share" onClick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on whatsapp"><i class="fab fa-whatsapp fs-3 text-success"></i></a>
 
 									</li>
 
@@ -157,7 +155,7 @@
 							<div class="tab-pane fade active show" id="pro-info-1" role="tabpanel">
 								<div class="tabs-wrapper mt-0">
 									<div class="product__details-des">
-										<?= str_replace('\n', '<br/>', $product_desc[0]['description']) ?>
+										<?= str_replace('\n', '<br/>', $product_desc['description']) ?>
 									</div>
 								</div>
 							</div>

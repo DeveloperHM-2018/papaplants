@@ -8,14 +8,14 @@
 <body>
 	<?php $this->load->view('include/header') ?>
 	<div class="mobileSearch" style="display: block !important;">
-	<form action="#">
-		<div class="single-input-field field-search mobile-serach-field">
-			<input type="search" placeholder="Search Plants..." class="text-capitalize">
-			<button type="submit" class="mobileSearchIcon">
-				<i class="fas fa-search"></i>
-			</button>
-		</div>
-	</form>
+		<form action="<?= base_url('products') ?>" method="get">
+			<div class="single-input-field field-search mobile-serach-field">
+				<input type="search" name="search" placeholder="Search Plants..." class="text-capitalize">
+				<button type="submit" class="mobileSearchIcon">
+					<i class="fas fa-search"></i>
+				</button>
+			</div>
+		</form>
 	</div>
 	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 		<ol class="carousel-indicators">
@@ -120,7 +120,7 @@
 				$part = array_slice($other_category, $start, 4, true);
 				if (!empty($part)) {
 			?>
-					<div class="category-area category-area-basic pt-10">
+					<div class="category-area category-area-basic pt-10 mb-10">
 						<div class="container">
 							<div class="category-wrapper slider-drag wow fadeInUp" data-wow-delay=".3s">
 								<div class="swiper-container category-basic-slider">
