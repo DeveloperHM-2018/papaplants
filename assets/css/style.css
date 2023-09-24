@@ -12,6 +12,7 @@ body {
 	font-weight: normal;
 	color: var(--clr-common-text);
 	line-height: 26px;
+	/* overflow: hidden; */
 }
 
 a {
@@ -16373,4 +16374,22 @@ only screen and (min-width: 576px) and (max-width: 767px),
 /* Handle on hover */
 #myTab::-webkit-scrollbar-thumb:hover {
 	background: #dd1e1e;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+@media screen and (max-width: 480px) {
+	.smallfs {
+		font-size: 20px;
+	}
+	.padding-1{
+		padding: 1rem !important;
+	}
+	.margin-1{
+		margin-top: 0.5rem !important;
+		margin-bottom: 0.5rem !important;
+	}
+
 }

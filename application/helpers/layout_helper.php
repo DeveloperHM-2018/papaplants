@@ -211,13 +211,13 @@ function cart_page()
 				<h6 class="text-black mb-0"><?= $items['name']; ?></h6>
 			</div>
 			<div class="col-md-3 col-lg-3 col-xl-2  col-6 d-flex">
-				<button class="btn btn-link addCart px-2" data-id="<?= $items['id'] ?>" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+				<button class="btn btn-link qtybtn px-2" data-id="<?= $items['rowid'] ?>" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
 					<i class="fas fa-minus"></i>
 				</button>
 
-				<input id="form1" min="0" name="quantity" value="<?= $items['qty'] ?>" type="number" class="form-control form-control-sm" />
+				<input id="itemqty<?= $items['rowid'] ?>" min="0" name="quantity" value="<?= $items['qty'] ?>" type="number" class="form-control form-control-sm" />
 
-				<button class="btn btn-link addCart px-2" data-id="<?= $items['id'] ?>" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+				<button class="btn btn-link qtybtn px-2" data-id="<?= $items['rowid'] ?>" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
 					<i class="fas fa-plus"></i>
 				</button>
 			</div>
@@ -271,15 +271,25 @@ function cart_checkout_list()
 	foreach ($ci->cart->contents() as $items) {
 		// if ($items['is_visible'] == 1) {
 	?>
-		<tr class="cart_item">
-			<td class="product-name">
-				<?= $items['name']; ?>
-				<strong class="product-quantity"> × <?= $items['qty'] ?></strong>
-			</td>
-			<td class="product-total">
-				<span class="amount"> &#8377; <?= $items['price'] ?></span>
-			</td>
-		</tr>
+		<div class="card mb-4">
+			<div class="card-body p-2">
+				<div class="row align-items-center">
+					<div class="col-md-4 col-4">
+						<img src="<?= setImage($items['image'], '/'); ?>" class="img-fluid" alt="Generic placeholder image">
+					</div>
+					<div class="col-md-8 col-8 d-flex justify-content-center">
+						<div>
+
+							<p class="small fw-normal mb-0"><b><?= $items['name']; ?></b></p>
+
+							<p class="small text-muted mb-2 pb-2"> &#8377; <?= $items['price'] ?> × <?= $items['qty'] ?></p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
 <?php
 		// }
 	}

@@ -61,7 +61,7 @@
                                                         <td><?php echo ((empty($cat[0]['name'])) ? 'deleted' : $cat[0]['name']); ?></td>
                                                         <td><?php echo $row['name']; ?></td>
                                                         <td>
-                                                            <img src="<?= setImage($row['image_url'], 'uploads/subcategory/') ?>" style="width: 50px;height: 50px;" />
+                                                            <img src="<?= setImage($row['image_url'], 'uploads/category/') ?>" style="width: 50px;height: 50px;" />
                                                         </td>
                                                         <!-- <td class="text-center"><a href="<?php echo base_url() . 'show_products/' . $row['sub_category_id'] . "/" . url_title($row['name']) . "/" . url_title($cat[0]['name']);  ?>"><i class="fas fa-eye btn btn-light"></i></a></td> -->
                                                         <td>

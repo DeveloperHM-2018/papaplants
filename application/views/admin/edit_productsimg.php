@@ -83,7 +83,7 @@
 												<button name="submit" class="btn  btn-light">Submit</button>
 											</div>
 										</div>
-										<div class="col-md-6 col-lg-6 col-xl-6">
+										<div class="col-md-6 col-lg-6 col-xl-6 d-none">
 											<h5>Images reference -</h5>
 											<ol>
 												<?php
@@ -137,7 +137,7 @@
 													foreach ($productimg as $img) {
 												?>
 														<li id="arrayorder_<?php echo $img['id'] ?>">
-															<img src="<?= base_url() ?>uploads/product/<?php echo $img['image_file'] ?>" style="width: 200px;" class="shadow" />
+															<img src="<?= base_url() ?><?php echo $img['image_file'] ?>" style="width: 200px;" class="shadow" />
 															<div class="clear"></div>
 															<a href="<?php echo base_url() . 'admin_Dashboard/deleteproductimg/' . $img['id']; ?>" class="btn btn-danger" onclick="return confirm('Continue to delete?')"><i class="fas fa-trash-alt"></i></a>
 														</li>

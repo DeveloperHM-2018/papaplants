@@ -187,9 +187,9 @@ class Admin_Dashboard extends CI_Controller
 		$data['categ'] = $this->CommonModal->getRowByIdInOrder('category', array('parent_id' => '0'), 'id', 'DESC');
 		if (count($_POST) > 0) {
 			$post = $this->input->post();
-			$post['image_url'] = imageUpload('img', 'uploads/subcategory/');
-			$post['image_url_one'] = imageUpload('img_one', 'uploads/subcategory/');
-			$post['image_url_two'] = imageUpload('img_two', 'uploads/subcategory/');
+			$post['image_url'] = imageUpload('img', 'uploads/category/');
+			$post['image_url_one'] = imageUpload('img_one', 'uploads/category/');
+			$post['image_url_two'] = imageUpload('img_two', 'uploads/category/');
 			$savedata = $this->CommonModal->insertRowReturnId('category', $post);
 			if ($savedata) {
 				$this->session->set_userdata('msg', '<div class="alert alert-success">Category Add Successfully</div>');
@@ -212,34 +212,34 @@ class Admin_Dashboard extends CI_Controller
 			$post = $this->input->post();
 			$image_url = $post['image_url'];
 			if ($_FILES['img']['name'] != '') {
-				$img = imageUpload('img', 'uploads/subcategory/');
+				$img = imageUpload('img', 'uploads/category/');
 				// print_r($img);
 				$post['image_url'] = $img;
 				if ($image_url != "") {
-					unlink('uploads/subcategory/' . $image_url);
+					unlink('uploads/category/' . $image_url);
 				}
 			}
 			$image_url_one = $post['image_url_one'];
 			$image_url_two = $post['image_url_two'];
 			if ($_FILES['img']['name'] != '') {
-				$img = imageUpload('img', 'uploads/subcategory/');
+				$img = imageUpload('img', 'uploads/category/');
 				$post['image_url'] = $img;
 				if ($image_url != "") {
-					unlink('uploads/subcategory/' . $image_url);
+					unlink('uploads/category/' . $image_url);
 				}
 			}
 			if ($_FILES['img_one']['name'] != '') {
-				$img = imageUpload('img_one', 'uploads/subcategory/');
+				$img = imageUpload('img_one', 'uploads/category/');
 				$post['image_url_one'] = $img;
 				if ($image_url_one != "") {
-					unlink('uploads/subcategory/' . $image_url_one);
+					unlink('uploads/category/' . $image_url_one);
 				}
 			}
 			if ($_FILES['img_two']['name'] != '') {
 				$img = imageUpload('img_two', 'uploads/category/');
 				$post['image_url_two'] = $img;
 				if ($image_url_two != "") {
-					unlink('uploads/subcategory/' . $image_url_two);
+					unlink('uploads/category/' . $image_url_two);
 				}
 			}
 			$category_id = $this->CommonModal->updateRowById('category', 'id', $tid, $post);
@@ -640,7 +640,7 @@ class Admin_Dashboard extends CI_Controller
 				for ($i = 0; $i <= count($_FILES['img']['name']); $i++) {
 					if ($_FILES['img']['name'][$i] != '') {
 						$_FILES['images'] = array('name' => $_FILES['img']['name'][$i], 'full_path' => $_FILES['img']['full_path'][$i], 'type' => $_FILES['img']['type'][$i], 'tmp_name' => $_FILES['img']['tmp_name'][$i], 'error' => $_FILES['img']['error'][$i], 'size' => $_FILES['img']['size'][$i]);
-						$post['image_file'] = imageUpload('images', "uploads/product/");
+						$post['image_file'] = "uploads/product/".imageUpload('images', "uploads/product/");
 						$post['product_id'] = $product_id;
 						$this->CommonModal->insertRowReturnId('product_images', $post);
 					}

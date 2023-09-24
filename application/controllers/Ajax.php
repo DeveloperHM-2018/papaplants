@@ -59,7 +59,8 @@ class Ajax extends CI_Controller
 			'rowid' => $rowid,
 			'qty'   => $qty
 		);
-		$this->cart->update($data);
+		$gh =  $this->cart->update($data);
+		
 	}
 	public function get_contact_otp()
 	{

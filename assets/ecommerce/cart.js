@@ -12,6 +12,9 @@ $(document).on('click', '.addCart', function () {
 		success: function () {
 			load_cart();
 			load_amount();
+			load_cart_page();
+			load_checkout_list();
+			fetch_cart_count();
 			$('.action-item-cart').click();
 			// alert('Item added to cart');
 		}
@@ -30,7 +33,28 @@ $(document).on('click', '.remove_cartitem', function () {
 			load_cart();
 			load_amount();
 			load_cart_page();
+			load_checkout_list();
+			fetch_cart_count();
 			alert('Item removed');
+		}
+	});
+});
+$(document).on('click', '.qtybtn', function () {
+	var base_url = $('#base').val();
+	var rowid = $(this).data('id');
+	var itemqty = $('#itemqty' + rowid).val();
+	$.ajax({
+		method: "POST",
+		url: base_url + "Ajax/update_qty",
+		data: {
+			rowid: rowid,
+			qty: itemqty
+		},
+		success: function (response) {
+			load_cart();
+			load_amount();
+			load_cart_page();
+			fetch_cart_count();
 		}
 	});
 });
@@ -50,7 +74,7 @@ function fetch_cart_count() {
 	$.ajax({
 		url: base_url + "Ajax/fetch_cart_count",
 		method: 'POST',
-		success: function (response) { 
+		success: function (response) {
 			$('.cart_count').html(response);
 			if (response > 0) {
 				$('#cart_btn').html('<a href="' + base_url + 'cart" class="fill-btn">View cart</a><a href="' + base_url + 'checkout" class="border-btn">Checkout</a>');

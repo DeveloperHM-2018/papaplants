@@ -50,7 +50,7 @@
                                                         <input class="form-control pd-r-80" type="file" name="img" accept="image/png, image/gif, image/jpeg, image/jpg">
                                                         <?php if ($tag == 'edit') { ?>
                                                             <input type="hidden" name="image_url" value="<?= $category['0']['image_url'] ?>">
-                                                            <img src="<?= setImage($category['0']['image_url'], 'uploads/subcategory/') ?>" height="50px">
+                                                            <img src="<?= setImage($category['0']['image_url'], 'uploads/category/') ?>" height="50px">
                                                         <?php    }  ?>
                                                     </div>
                                                 </div>
@@ -77,7 +77,7 @@
                                                         <input class="form-control pd-r-80" type="file" name="img_one" accept="image/png, image/gif, image/jpeg">
                                                         <?php if ($tag == 'edit') { ?>
                                                             <input type="hidden" name="image_url_one" value="<?= $category['0']['image_url_one'] ?>">
-                                                            <img src="<?= base_url() ?>uploads/subcategory/<?= $category['0']['image_url_one'] ?>" height="50px">
+                                                            <img src="<?= base_url() ?>uploads/category/<?= $category['0']['image_url_one'] ?>" height="50px">
                                                         <?php    }  ?>
                                                     </div>
                                                 </div>
@@ -98,7 +98,7 @@
                                                         <input class="form-control pd-r-80" type="file" name="img_two" accept="image/png, image/gif, image/jpeg">
                                                         <?php if ($tag == 'edit') { ?>
                                                             <input type="hidden" name="image_url_two" value="<?= $category['0']['image_url_two'] ?>">
-                                                            <img src="<?= base_url() ?>uploads/subcategory/<?= $category['0']['image_url_two'] ?>" height="50px">
+                                                            <img src="<?= base_url() ?>uploads/category/<?= $category['0']['image_url_two'] ?>" height="50px">
                                                         <?php    }  ?>
                                                     </div>
                                                 </div>
