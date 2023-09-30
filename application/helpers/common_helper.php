@@ -296,13 +296,13 @@ function imageUpload($imageName, $path)
 		$path = $data['upload_data']['full_path'];
 		$picture = $data['upload_data']['file_name'];
 		$configi['image_library'] = 'gd2';
-		// 		$config['quality'] = '100%';
+		$config['quality'] = '100%';
 		$config['create_thumb'] = FALSE;
 		$configi['source_image'] = $path;
 		$configi['new_image'] = $target_path;
-		// 		$configi['maintain_ratio'] = TRUE;
-		// 		$configi['width'] = 380;
-		// 		$configi['height'] = 260;
+		$configi['maintain_ratio'] = TRUE;
+		$configi['width'] = 380;
+		$configi['height'] = 260;
 		$ci->load->library('image_lib');
 		$ci->image_lib->initialize($configi);
 		$ci->image_lib->resize();

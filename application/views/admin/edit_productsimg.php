@@ -77,7 +77,7 @@
 												<div class="form-group">
 													<label class=""> Upload Image </label>
 													<div class="pos-relative">
-														<input class="form-control pd-r-80" required="" type="file" name="img[]" accept="image/png, image/gif, image/jpeg" multiple>
+														<input class="form-control pd-r-80" required="" type="file" name="img[]" accept="image/png, image/gif, image/jpeg, image/webp" multiple>
 													</div>
 												</div>
 												<button name="submit" class="btn  btn-light">Submit</button>
