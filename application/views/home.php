@@ -1,202 +1,331 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php $this->load->view('includes/header'); ?>
+<style>
+    .banner-imgs {
+        height: 500px !important;
+        background-size: cover !important;
+    }
 
-<head>
-	<?php $this->load->view('include/headerlink') ?>
-</head>
+    @media (max-width: 991px) {
+        .banner-imgs {
+            height: 140px !important;
+            background-size: cover !important;
+        }
+    }
+</style>
+<section class="home-classic-slider slider-arrow">
+    <?php if ($banner) {
+        foreach ($banner as $b_list) {
+    ?>
+            <div class="banner-part sliderheight banner-imgs" style="background: url(<?= BANNER_IMAGE . $b_list['image_path'] ?>) no-repeat center;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-lg-6">
 
-<body>
-	<?php $this->load->view('include/header') ?>
-	<div class="mobileSearch" style="display: block !important;">
-		<form action="<?= base_url('products') ?>" method="get">
-			<div class="single-input-field field-search mobile-serach-field">
-				<input type="search" name="search" placeholder="Search Plants..." class="text-capitalize">
-				<button type="submit" class="mobileSearchIcon">
-					<i class="fas fa-search"></i>
-				</button>
-			</div>
-		</form>
-	</div>
-	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-		<ol class="carousel-indicators">
-			<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-			<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-			<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-		</ol>
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img class="d-block w-100" src="<?= base_url() ?>assets/images/slider/1.png" alt="First slide">
-			</div>
-			<div class="carousel-item">
-				<img class="d-block w-100" src="<?= base_url() ?>assets/images/slider/2.png" alt="Second slide">
-			</div>
-			<div class="carousel-item">
-				<img class="d-block w-100" src="<?= base_url() ?>assets/images/slider/3.png" alt="Third slide">
-			</div>
-		</div>
-		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="sr-only">Previous</span>
-		</a>
-		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="sr-only">Next</span>
-		</a>
-	</div>
-	<!-- category-area start  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <?php
+        }
+    }  ?>
+</section>
 
 
+<section class="section suggest-part">
+    <div class="container">
+        <ul class="suggest-slider slider-arrow">
+            <?php
 
-	<?php
-	$i = 0;
-	$j = 0;
-	$start = 0;
-	$part = [];
-	if (!empty($category)) {
-		foreach ($category as $cat_nme) {
+            if ($cate != '') {
+                foreach ($cate as $row) {
+                    $count = getNumRows('product', array('category_id' => $row['category_id']));
+            ?>
 
-	?>
-			<section class="product-area pt-40 pb-40 prodiv">
-				<div class="container">
-					<div class="row align-items-center wow fadeInUp" data-wow-delay=".3s">
-						<div class="col-lg-8 col-md-8">
-							<div class="section-title style-5">
-								<span class="section-subtitle">Papaplants</span>
-								<h2 class="section-main-title mb-45"><?= $cat_nme['name']; ?></h2>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4">
-							<div class="product-area-btn product-slider-area-btn style-5">
-								<a href="<?= base_url() ?>products/<?= $cat_nme['meta_url']; ?>" class="border-btn"><span>view all</span><i class="fal fa-long-arrow-right"></i></a>
+                    <li>
+                        <a class="suggest-card" href="<?= base_url() ?>product?category=<?= encryptId($row['category_id']); ?>&&<?= url_title($row['category_name']); ?>">
+                            <img src="<?= base_url(); ?>upload/category/<?= $row['image']; ?>" alt="<?= $row['category_name']; ?>">
+                            <h5><?= $row['category_name'] ?> <span><?= $count ?? '0' ?> items</span></h5>
+                        </a>
+                    </li>
 
-								<?php
-								$subcategory = getRowByMoreId('category', ['parent_id' => $cat_nme['id'], 'is_visible' => '1']);
-								if (!empty($subcategory)) {
-								?>
-									<?php
-									foreach ($subcategory as $subcat) {
-									?>
-										<a href="<?= base_url() ?>products/<?= $cat_nme['meta_url'] ?>/<?= $subcat['meta_url'] ?>" class="border-btn">
-											<span>
-												| <?= $subcat['name'] ?>
-											</span>
-										</a>
-								<?php
-									}
-								}
-								?>
-							</div>
-						</div>
-					</div>
-					<div class="procuct-wrapper product-slide-wrapper mb-0 slider-drag wow fadeInUp" data-wow-delay=".3s">
-						<div class="swiper-container product-active">
-							<div class="swiper-wrapper">
+            <?php
+                }
+            }
+            ?>
 
-								<?php
-								$product_list = getRowById('product_category', 'category_id', $cat_nme['id']);
-								$i = 0;
-								if (!empty($product_list)) {
-									foreach ($product_list as $pro) {
-										$product = getRowById('product', 'id', $pro['product_id']);
-										foreach ($product as $product_info) {
-											if ($i == 4) {
-												break;
-											} else {
-												product_slide($product_info);
-											}
-											$i++;
-										}
-									}
-								}
-								?>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+        </ul>
+    </div>
+</section>
+<section class="section recent-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>Recently sold items</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-12 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
-			<?php
-			if ($j % 2 == 0) {
-				$part = array_slice($other_category, $start, 4, true);
-				if (!empty($part)) {
-			?>
-					<div class="category-area category-area-basic pt-10 mb-10">
-						<div class="container">
-							<div class="category-wrapper slider-drag wow fadeInUp" data-wow-delay=".3s">
-								<div class="swiper-container category-basic-slider">
-									<div class="swiper-wrapper">
-										<?php
-										foreach ($part as $part_pro) {
-											$count = getNumRows('product_category', ['category_id' => $part_pro['id']]);
-										?>
-											<div class="swiper-slide">
-												<div class="category-single category-basic">
-													<div class="category-thumb">
-														<a href="<?= base_url('products/' . $part_pro['meta_url']) ?>"><img src="assets/img/category/category-t-1.jpg" alt="img not found"></a>
-													</div>
-													<div class="category-content">
-														<span class="in-stock"><span class="stock-amount"><?= $count ?></span> in stock</span>
-														<h4 class="category-name">
-															<a href="<?= base_url('products/' . $part_pro['meta_url']) ?>"><?= $part_pro['name'] ?></a>
-														</h4>
-													</div>
-												</div>
-											</div>
-										<?php
-										}
-										?>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+            <?php
+            if ($product != '') {
+                foreach ($product as $row) {
+                    echo '<div class="col">';
+                    product($row, 'normal');
+                    echo '</div>';
+                }
+            }
+            ?>
+            <div class="row" style="display: contents;">
+                <div class="col-lg-12">
+                    <div class="section-btn-25"><a href="<?= base_url('product') ?>" class="btn btn-outline"><i class="fas fa-eye"></i><span>show more</span></a></div>
+                </div>
+            </div>
+        </div>
+</section>
+<div class="section promo-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="promo-img"><a href="#"><img src="<?= base_url() ?>assets/img/03.jpg" alt="promo"></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="section feature-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>our featured items</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2">
 
-	<?php
-					$start += 4;
-				}
-			}
-			$j++;
-		}
-	}
-	?>
+            <?php
+            if ($featurepro != '') {
+                foreach ($featurepro as $row) {
 
-	<!-- instagram slider area start  -->
-
-	<div class="instagram-slider-wrappper wow fadeInUp mt-3" data-wow-delay=".3s">
-		<div class="swiper-container instagram-slider-active">
-			<div class="swiper-wrapper">
-				<?php
+                    feature_product($row);
+                }
+            }
+            ?>
 
 
-				if ($handle = opendir('./uploads/instagram/')) {
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-btn-25"><a href="<?= base_url('product') ?>" class="btn btn-outline"><i class="fas fa-eye"></i><span>show more</span></a></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section countdown-part">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mx-auto">
+                <div class="countdown-content">
+                    <h3>special discount offer for vegetable items</h3>
+                    <p>Reprehenderit sed quod autem molestiae aut modi minus veritatis iste dolorum suscipit quis voluptatum fugiat mollitia quia minima</p>
+                    <div class="countdown countdown-clock" data-countdown="2022/12/22"><span class="countdown-time"><span>00</span><small>days</small></span><span class="countdown-time"><span>00</span><small>hours</small></span><span class="countdown-time"><span>00</span><small>minutes</small></span><span class="countdown-time"><span>00</span><small>seconds</small></span></div>
+                    <a href="<?= base_url('product') ?>" class="btn btn-inline"><i class="fas fa-shopping-basket"></i><span>shop now</span></a>
+                </div>
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <div class="countdown-img">
+                    <img src="<?= base_url() ?>assets/images/countdown.png" alt="countdown">
+                    <div class="countdown-off"><span>20%</span><span>off</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section newitem-part">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="section-heading">
+                    <h2>collected new items</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <ul class="new-slider slider-arrow">
+                    <?php
+                    if ($productdesc != '') {
 
-					while (false !== ($entry = readdir($handle))) {
-
-						if ($entry != "." && $entry != "..") {
-				?>
-							<div class="swiper-slide">
-								<div class="instagram-shot">
-									<a href="#"><img src="<?= base_url('uploads/instagram/' . $entry) ?>" alt=""></a>
-									<div class="instagram-hover-link">
-										<a href="#"><i class="fab fa-instagram"></i></a>
-									</div>
-								</div>
-							</div>
-				<?php
-						}
-					}
-
-					closedir($handle);
-				}
-				?>
+                        foreach ($productdesc as $row) {
+                            echo ' <li>';
+                            product($row, 'new');
+                            echo '</li>';
+                        }
+                    }
+                    ?>
 
 
-			</div>
-		</div>
-	</div>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="section-btn-25"><a href="<?= base_url('product') ?>" class="btn btn-outline"><i class="fas fa-eye"></i><span>show more</span></a></div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="section promo-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 px-xl-3">
+                <div class="promo-img"><a href="#"><img src="<?= base_url() ?>assets/img/01.jpg" alt="promo"></a></div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 px-xl-3">
+                <div class="promo-img"><a href="#"><img src="<?= base_url() ?>assets/img/02.jpg" alt="promo"></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="section niche-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>Browse by Top Niche</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="nav nav-tabs">
+                    <li><a href="#top-order" class="tab-link active" data-bs-toggle="tab"><i class="icofont-price"></i><span>top order</span></a></li>
+                    <li><a href="#top-rate" class="tab-link" data-bs-toggle="tab"><i class="icofont-star"></i><span>top rating</span></a></li>
+                    <li><a href="#top-disc" class="tab-link" data-bs-toggle="tab"><i class="icofont-sale-discount"></i><span>top discount</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-pane fade show active" id="top-order">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
-	<?php $this->load->view('include/footer') ?>
-	<?php $this->load->view('include/footerlink') ?>
+
+                <?php
+                if ($product != '') {
+
+                    foreach ($product as $row) {
+                        echo '<div class="col">';
+                        product($row, 'normal');
+                        echo '</div>';
+                    }
+                }
+                ?>
+
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="top-rate">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+                <?php
+                if ($product != '') {
+
+                    foreach ($product as $row) {
+                        echo '<div class="col">';
+                        product($row, 'rate');
+                        echo '</div>';
+                    }
+                }
+                ?>
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="top-disc">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+
+                <?php
+                if ($product != '') {
+
+                    foreach ($product as $row) {
+                        echo '<div class="col">';
+                        product($row, 'discount');
+                        echo '</div>';
+                    }
+                }
+                ?>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-btn-25"><a href="<?= base_url('product') ?>" class="btn btn-outline"><i class="fas fa-eye"></i><span>show more</span></a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="news-part" style="background: url(assets/images/newsletter.jpg) no-repeat center;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-5 col-lg-6 col-xl-7">
+                <div class="news-text">
+                    <h2>Subscribe Monthly Grocery with <br> 20% Discount</h2>
+                    <p>Deeply rooted in ethics and values</p>
+                </div>
+            </div>
+            <div class="col-md-7 col-lg-6 col-xl-5">
+                <form class="news-form"><input type="text" placeholder="Enter Your Email Address"><button><span><i class="icofont-ui-email"></i>Subscribe</span></button></form>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="intro-part">
+    <div class="container">
+        <div class="row intro-content">
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon"><i class="fas fa-truck"></i></div>
+                    <div class="intro-content">
+                        <h5>free home delivery</h5>
+                        <p>deeply rooted in ethics and values</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon"><i class="fas fa-sync-alt"></i></div>
+                    <div class="intro-content">
+                        <h5>instant return policy</h5>
+                        <p>deeply rooted in ethics and values</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon"><i class="fas fa-headset"></i></div>
+                    <div class="intro-content">
+                        <h5>quick support system</h5>
+                        <p>deeply rooted in ethics and values</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="intro-wrap">
+                    <div class="intro-icon"><i class="fas fa-lock"></i></div>
+                    <div class="intro-content">
+                        <h5>secure payment way</h5>
+                        <p>deeply rooted in ethics and values</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php $this->load->view('includes/footer'); ?>
+
+<?php $this->load->view('includes/footer-link'); ?>
 
 </body>
 

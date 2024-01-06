@@ -1,15 +1,18 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-$active_group = 'local';
+
+
+$active_group = 'default';
 $query_builder = TRUE;
-$db['local'] = array(
+
+$db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'papaplants',
+	'database' => 'papaplants_new',
 	'dbdriver' => 'mysqli',
-	'dbprefix' => 'pp_',
+	'dbprefix' => 'tbl_',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
@@ -23,14 +26,15 @@ $db['local'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
 $db['server'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'papaplants_webangle',
-	'password' => 'Webangle@2023',
-	'database' => 'papaplants_papa_plants',
+	'username' => 'u381466182_papa_plants',
+	'password' => 'Z?IXa1#Q',
+	'database' => 'u381466182_papa_plants',
 	'dbdriver' => 'mysqli',
-	'dbprefix' => 'pp_',
+	'dbprefix' => 'tbl_',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,

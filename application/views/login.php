@@ -1,128 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php $this->load->view('includes/header'); ?>
+<section class="user-form-part">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
+                <div class="user-form-card">
+                    <div class="user-form-title">
+                        <h2>Welcome Please Continue!</h2>
+                        <!-- <p>Use your credentials to access</p> -->
+                        <?php if ($this->session->userdata('loginmsg') != '') { ?>
+                            <?= $this->session->userdata('loginmsg'); ?>
+                        <?php  }
+                        $this->session->unset_userdata('loginmsg'); ?>
+                    </div>
+                    <div class="user-form-group">
+                        <div class="user-form-social text-center dm-none">
+                            <img src="<?= base_url() ?>assets/img/login-img.png" alt="Image" width="320px">
+                        </div>
+                        <div class="user-form-divider">
+                            <!-- <p>or</p> -->
+                        </div>
+                        <form class="user-form" method="post" action="">
+                            <div class="form-group">
+                                <input type="text" name="uname" id="contactno" placeholder="Enter WhatsApp No. *" maxlength="10" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required="">
+                                <span class="text-danger" id="contactErrMsg"></span>
+                            </div>
 
-<head>
-	<?php $this->load->view('include/headerlink.php') ?>
-	<style>
-		input[type=text],
-		input[type=password] {
-			width: 100%;
-			padding: 12px 20px;
-			margin: 8px 0;
-			display: inline-block;
-			border: 1px solid #ccc;
-			box-sizing: border-box;
-		}
+                            <div class="form-group" style="display:none" id="otpbox">
+                                <input type="text" class="form-control myinput" name="otp" maxlength="4" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Enter OTP" id="otp" autocomplete="off">
+                            </div>
 
-		button {
-			background-color: #04AA6D;
-			color: white;
-			padding: 14px 20px;
-			margin: 8px 0;
-			border: none;
-			cursor: pointer;
-			width: 100%;
-		}
+                            <div class="form-button">
+                                <div class="d-flex justify-content-center">
+                                    <a href="javascript: void(0);" id="otpverify" class="btn btn-success w-50" style="display:none;"> <span>Submit</span> </a>
+                                    <button type="button" class="w-50" id="otpbtn">Request OTP</button>
+                                </div>
+                                <!-- <p>
+                                    Forgot password?<a href="<?= base_url('forgot-password') ?>">reset Now</a>
+                                </p> -->
 
-		button:hover {
-			opacity: 0.8;
-		}
+                                <div class="resendOtpWrapper">
+                                    <p id="resendmsg"></p>
+                                    <p id="otpmessage"></p>
+                                </div>
+                                <hr>
 
-		.cancelbtn {
-			width: auto;
-			padding: 10px 18px;
-			background-color: #f44336;
-		}
 
-		.imgcontainer {
-			text-align: center;
-			margin: 24px 0 12px 0;
-		}
+                                <p>
+                                    Don't have any account?<a href="<?= base_url('register') ?>">register here</a>
+                                </p>
 
-		img.avatar {
-			width: 40%;
-			border-radius: 50%;
-		}
-
-		.container {
-			padding: 16px;
-		}
-
-		span.psw {
-			float: right;
-			padding-top: 16px;
-		}
-
-		/* Change styles for span and cancel button on extra small screens */
-		@media screen and (max-width: 300px) {
-			span.psw {
-				display: block;
-				float: none;
-			}
-
-			.cancelbtn {
-				width: 100%;
-			}
-		}
-	</style>
-</head>
-
-<body>
-	<!-- header  -->
-	<?php include "include/header2.php" ?>
-	<!-- header area end  -->
-	<section class="page-title-area" data-background="<?= base_url() ?>assets/images/about-banner.jpg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="page-title-wrapper">
-						<h1 class="page-title mb-10">Login In</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="breadcrumb-wrapper">
-			<div class="container">
-				<div class="breadcrumb-menu">
-					<nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
-						<ul class="trail-items">
-							<li class="trail-item trail-begin">
-								<a href="#"><span>home</span></a>
-							</li>
-							<li class="trail-item trail-end"><span>contact us</span></li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- banner area end  -->
-	<div class="row">
-		<div class="col-6">
-		</div>
-		<div class="col-6">
-			<section class="login">
-				<form action="/action_page.php" method="post">
-					<div class="container">
-						<label for="uname"><b>Username</b></label>
-						<input type="text" placeholder="Enter Username" name="uname" required>
-						<label for="psw"><b>Password</b></label>
-						<input type="password" placeholder="Enter Password" name="psw" required>
-						<button type="submit">Login</button>
-						<label>
-							<input type="checkbox" checked="checked" name="remember"> Remember me
-						</label>
-					</div>
-					<div class="container" style="background-color:#f1f1f1">
-						<button type="button" class="cancelbtn">Cancel</button>
-						<span class="psw">Forgot <a href="#">password?</a></span>
-					</div>
-				</form>
-			</section>
-		</div>
-	</div>
-	<?php $this->load->view('include/footer') ?>
-	<?php $this->load->view('include/footerlink') ?>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php $this->load->view('includes/footer'); ?>
+<?php $this->load->view('includes/footer-link'); ?>
+<script src="<?= base_url() ?>assets/js/myplugin.js"></script>
 </body>
 
 </html>

@@ -1,34 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" href="<?= base_url() ?>assets/admin/images/fav.webp" />
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>
-        <?= $title ?>
-    </title>
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/jquery-ui/jquery-ui.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/jquery-ui/jquery-ui.theme.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/simple-line-icons/css/simple-line-icons.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/flags-icon/css/flag-icon.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/chartjs/Chart.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/morris/morris.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/weather-icons/css/pe-icon-set-weather.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/chartjs/Chart.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/starrr/starrr.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/jquery-jvectormap/jquery-jvectormap-2.0.3.css">
-    <!--<script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>-->
-    <script src="https://cdn.ckeditor.com/4.20.0/full/ckeditor.js"></script>
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/css/main.css">
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/datatable/css/dataTables.bootstrap4.min.css" />
-    <link rel="stylesheet" href="<?= base_url() ?>assets/admin/vendors/datatable/buttons/css/buttons.bootstrap4.min.css" />
-    <style>
-        .ck-content{
-            height:200px;
-        }
-        </style>
-</head>
-<body id="main-container" class="default"  style="background:url(<?= base_url() ?>assets/images/login_banner.jpg);background-size:cover;">
+<link href="<?= base_url() ?>/assets/admin/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="<?= base_url() ?>/assets/admin/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<?= base_url() ?>/assets/admin/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>/assets/admin/libs/toastr/build/toastr.min.css">
+
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" />
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+<link href="<?= base_url() ?>assets/admin/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="<?= base_url() ?>assets/admin/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel=" stylesheet" type="text/css" />
+<link href="<?= base_url() ?>assets/admin/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.min.css" rel="stylesheet" type="text/css">
+
+<link href="<?= base_url() ?>/assets/admin/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<link href="<?= base_url() ?>/assets/admin/css/icons.min.css" rel="stylesheet" type="text/css" />
+<link href="<?= base_url() ?>/assets/admin/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+<script src="<?= base_url() ?>/assets/admin/libs/jquery/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+<script src="<?= base_url('assets/admin/ckeditor/ckeditor.js') ?>"></script>
+<script src="<?= base_url('assets/admin/ckeditor/samples/js/sample.js') ?>"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<!-- Data Table -->
+<script src="<?= base_url() ?>/assets/admin/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/jszip/jszip.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/4.2.2/js/dataTables.fixedColumns.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/js/pages/datatables.init.js"></script>
+<script src="<?= base_url() ?>/assets/admin/js/jQuery.print.min.js"></script>
+
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .wrap_text {
+        white-space: pre-line;
+    }
+
+    .select2-container--default .select2-results__option[aria-selected=true] {
+        background-color: #556ee6 !important;
+        color: #fff !important;
+    }
+</style>

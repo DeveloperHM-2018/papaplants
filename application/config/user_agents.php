@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 /*
 | -------------------------------------------------------------------
 | USER AGENT TYPES
@@ -53,6 +54,8 @@ $platforms = array(
 	'unix'				=> 'Unknown Unix OS',
 	'symbian' 			=> 'Symbian OS'
 );
+
+
 // The order of this array should NOT be changed. Many browsers return
 // multiple browser types so we want to identify the sub-type first.
 $browsers = array(
@@ -86,6 +89,7 @@ $browsers = array(
 	'Maxthon'		=> 'Maxthon',
 	'Ubuntu'		=> 'Ubuntu Web Browser'
 );
+
 $mobiles = array(
 	// legacy array, old values commented out
 	'mobileexplorer'	=> 'Mobile Explorer',
@@ -102,6 +106,7 @@ $mobiles = array(
 //	'ericsson'			=> 'Ericsson',
 //	'blackberry'		=> 'BlackBerry',
 //	'motorola'			=> 'Motorola'
+
 	// Phones and Manufacturers
 	'motorola'		=> 'Motorola',
 	'nokia'			=> 'Nokia',
@@ -147,11 +152,7 @@ $mobiles = array(
 	'open web'		=> 'Open Web',
 	'openweb'		=> 'OpenWeb',
 	'meizu'                 => 'Meizu',
-	'huawei'                => 'Huawei',
-	'xiaomi'                => 'Xiaomi',
-	'oppo'                  => 'Oppo',
-	'vivo'                  => 'Vivo',
-	'infinix'               => 'Infinix',
+
 	// Operating Systems
 	'android'		=> 'Android',
 	'symbian'		=> 'Symbian',
@@ -159,6 +160,7 @@ $mobiles = array(
 	'elaine'		=> 'Palm',
 	'series60'		=> 'Symbian S60',
 	'windows ce'	=> 'Windows CE',
+
 	// Browsers
 	'obigo'			=> 'Obigo',
 	'netfront'		=> 'Netfront Browser',
@@ -168,6 +170,7 @@ $mobiles = array(
 	'opera mini'	=> 'Opera Mini',
 	'opera mobi'	=> 'Opera Mobile',
 	'fennec'		=> 'Firefox Mobile',
+
 	// Other
 	'digital paths'	=> 'Digital Paths',
 	'avantgo'		=> 'AvantGo',
@@ -176,6 +179,7 @@ $mobiles = array(
 	'vodafone'		=> 'Vodafone',
 	'docomo'		=> 'NTT DoCoMo',
 	'o2'			=> 'O2',
+
 	// Fallback
 	'mobile'		=> 'Generic Mobile',
 	'wireless'		=> 'Generic Mobile',
@@ -187,6 +191,7 @@ $mobiles = array(
 	'smartphone'	=> 'Generic Mobile',
 	'cellphone'		=> 'Generic Mobile'
 );
+
 // There are hundreds of bots but these are the most common.
 $robots = array(
 	'googlebot'		=> 'Googlebot',
@@ -207,6 +212,5 @@ $robots = array(
 	'curious george'	=> 'Curious George',
 	'ia_archiver'		=> 'Alexa Crawler',
 	'MJ12bot'		=> 'Majestic-12',
-	'Uptimebot'		=> 'Uptimebot',
-	'UptimeRobot'		=> 'UptimeRobot'
+	'Uptimebot'		=> 'Uptimebot'
 );

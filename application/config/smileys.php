@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 /*
 | -------------------------------------------------------------------
 | SMILEYS
@@ -9,11 +10,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | :-) and :) use the same image replacement.
 |
 | Please see user guide for more info:
-| https://codeigniter.com/userguide3/helpers/smiley_helper.html
+| https://codeigniter.com/user_guide/helpers/smiley_helper.html
 |
 */
 $smileys = array(
+
 //	smiley			image name						width	height	alt
+
 	':-)'			=>	array('grin.gif',			'19',	'19',	'grin'),
 	':lol:'			=>	array('lol.gif',			'19',	'19',	'LOL'),
 	':cheese:'		=>	array('cheese.gif',			'19',	'19',	'cheese'),
@@ -57,4 +60,5 @@ $smileys = array(
 	':snake:'		=>	array('snake.gif',			'19',	'19',	'snake'),
 	':exclaim:'		=>	array('exclaim.gif',		'19',	'19',	'exclaim'),
 	':question:'	=>	array('question.gif',		'19',	'19',	'question')
+
 );

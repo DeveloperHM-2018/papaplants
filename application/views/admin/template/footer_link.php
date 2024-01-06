@@ -1,45 +1,72 @@
-<script src="<?= base_url() ?>assets/admin/vendors/jquery/jquery-3.3.1.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/jquery-ui/jquery-ui.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/moment/moment.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/js/app.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/jszip/jszip.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/pdfmake/pdfmake.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/pdfmake/vfs_fonts.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/buttons/js/dataTables.buttons.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/buttons/js/buttons.colVis.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/buttons/js/buttons.flash.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/buttons/js/buttons.html5.min.js"></script>
-<script src="<?= base_url() ?>assets/admin/vendors/datatable/buttons/js/buttons.print.min.js"></script>
-<!--<script src="<?= base_url() ?>assets/admin/js/datatable.script.js"></script>-->
+<script src="<?= base_url() ?>/assets/admin/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/metismenu/metisMenu.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/simplebar/simplebar.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/node-waves/waves.min.js"></script>
+
+<script src="<?= base_url() ?>/assets/admin/js/pages/two-step-verification.init.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/apexcharts/apexcharts.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/toastr/build/toastr.min.js"></script>
+
+<script src="<?= base_url() ?>/assets/admin/libs/select2/js/select2.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/spectrum-colorpicker2/spectrum.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+<script src="<?= base_url() ?>/assets/admin/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/%40chenfengyuan/datepicker/datepicker.min.js"></script>
+
+<script src="<?= base_url() ?>/assets/admin/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/libs/%40chenfengyuan/datepicker/datepicker.min.js"></script>
+
+<script src="<?= base_url() ?>/assets/admin/libs/parsleyjs/parsley.min.js"></script>
+<script src="<?= base_url() ?>/assets/admin/js/pages/form-validation.init.js"></script>
+
+<script src="<?= base_url() ?>/assets/admin/js/pages/form-advanced.init.js"></script>
+<script src="<?= base_url() ?>/assets/admin/js/app.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
-    window.setTimeout(function() {
-        $(".alert").fadeTo(200, 0).slideUp(200, function() {
-            $(this).remove();
-        });
-    }, 4000);
-</script>
-<script>
-    // ClassicEditor
-    //     .create(document.querySelector('#editor'))
-    //     .then(editor => {
-    //         console.log(editor);
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-    $(document).ready(function() {
-        $('#datatable').DataTable();
+    $('#datatable').DataTable({
+        "scrollX": true,
+        // dom: 'Bfrtip',
+        // buttons: [
+        //     'excelHtml5',
+        // ]
+    });
+
+    $("form[name='form_submit_common']").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        submitHandler: function(form) {
+            $("#save_common").text("").html("Loading.. <i class='fa fa-spin fa-spinner'></i>").attr('disabled', true);
+            preLoader(1);
+            form.submit();
+        },
+        errorPlacement: function(error, element) {
+            if ($(element).is('select.select2')) {
+                element.next().after(error);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $(document).on('click', '.confirm_data', function(ev) {
+        ev.preventDefault();
+        var urlToRedirect = ev.currentTarget.getAttribute('href');
+        swal({
+                title: $(this).attr('title'),
+                text: $(this).attr('title-text'),
+                icon: $(this).attr('icon'),
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = urlToRedirect;
+                    $(this).text("").html("Loading.. <i class='fa fa-spin fa-spinner'></i>").attr('disabled', true);
+                }
+            });
     });
 </script>
-<script>
-    CKEDITOR.replace('editor', {
-      height: 400,
-      baseFloatZIndex: 10005,
-      removeButtons: 'PasteFromWord'
-    });
-  </script>

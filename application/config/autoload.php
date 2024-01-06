@@ -1,9 +1,16 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+
 $autoload['packages'] = array();
-$autoload['libraries'] = array('email', 'database', 'session', 'table', 'upload', 'user_agent', 'form_validation', 'cart', 'encrypt');
+
+$autoload['libraries'] = array('session', 'database', 'form_validation', 'encrypt', 'email', 'Authorization_Token' , 'cart', 'table', 'upload');
+
 $autoload['drivers'] = array();
-$autoload['helper'] = array('url', 'common_helper',    'layout_helper', 'form', 'product_helper', 'html', 'date');
+
+$autoload['helper'] = array('url', 'html', 'form', 'common', 'file', 'cookie', 'security', 'product_helper', 'mail_helper');
+
 $autoload['config'] = array();
+
 $autoload['language'] = array();
-$autoload['model'] = array('CommonModal');
+
+$autoload['model'] = array('CommonModel');
