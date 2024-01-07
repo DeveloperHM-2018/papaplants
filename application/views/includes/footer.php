@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-sm-6 col-xl-4">
 				<div class="footer-widget">
-					<a class="footer-logo" href="#"><img src="<?= SMALL_LOGO ?>" alt="<?= APP_NAME_TITLE ?>"></a>
+					<a class="footer-logo" href="#"><img src="<?= base_url().SMALL_LOGO ?>" alt="<?= APP_NAME_TITLE ?>"></a>
 					<p class="footer-desc">Become a part of our thriving community that celebrates healthy living. Join hands with KISAN Greens for a greener, healthier future.
 					</p>
 					<ul class="footer-social">

@@ -7,7 +7,7 @@
 	<title><?= $title ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="shortcut icon" href="<?= SMALL_LOGO ?>">
+	<link rel="shortcut icon" href="<?= base_url().SMALL_LOGO ?>">
 
 	<?php include('header_link.php') ?>
 
@@ -35,7 +35,7 @@
 
 						<a href="<?= base_url() ?>" class="logo logo-light">
 							<span class="logo-sm">
-								<img src="<?= SMALL_LOGO ?>" alt="" height="22">
+								<img src="<?= base_url().SMALL_LOGO ?>" alt="" height="22">
 							</span>
 							<span class="logo-lg">
 								<h2 style="color: #fff; margin-top: 20px;"><?= APP_NAME ?></h2>

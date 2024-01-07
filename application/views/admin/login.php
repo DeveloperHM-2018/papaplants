@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
-                                    <img src="<?= SMALL_LOGO ?>" alt="" class="img-fluid">
+                                    <img src="<?= base_url().SMALL_LOGO ?>" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>

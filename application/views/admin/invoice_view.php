@@ -108,7 +108,7 @@
     <table width="100%">
         <tr>
             <td valign="top">
-                <img style="width: 100px; height: 95px; margin-top: 10px; margin-left: 20px;" src="<?= SMALL_LOGO ?>">
+                <img style="width: 100px; height: 95px; margin-top: 10px; margin-left: 20px;" src="<?= base_url().SMALL_LOGO ?>">
             </td>
             <td align="left" style="padding-left: -20px;">
                 <h1 style="color: #1f6893; font-size: 36px; margin:0;">kisangreens PVT LTD</h1>

@@ -30,9 +30,9 @@
 				<div class="header-media-group"><button class="header-user">
 						<i class="fas fa-bars"></i></button>
 					<a href="<?= base_url() ?>">
-						<img src="<?= SMALL_LOGO ?>" alt="Papa Plants"></a><button class="header-src"><i class="fas fa-search"></i></button>
+						<img src="<?= base_url().SMALL_LOGO ?>" alt="Papa Plants"></a><button class="header-src"><i class="fas fa-search"></i></button>
 				</div>
-				<a href="<?= base_url() ?>" class="header-logo"><img src="<?= SMALL_LOGO ?>" alt="Papa Plants"></a>
+				<a href="<?= base_url() ?>" class="header-logo"><img src="<?= base_url().SMALL_LOGO ?>" alt="Papa Plants"></a>
 				<?php
 				if ($this->session->has_userdata('login_user_id')) :
 				?>
@@ -124,7 +124,7 @@
 		<div id="cart"></div>
 	</aside>
 	<aside class="nav-sidebar">
-		<div class="nav-header"><a href="#"><img src="<?= SMALL_LOGO ?>" alt="logo"></a><button class="nav-close"><i class="icofont-close"></i></button></div>
+		<div class="nav-header"><a href="#"><img src="<?= base_url().SMALL_LOGO ?>" alt="logo"></a><button class="nav-close"><i class="icofont-close"></i></button></div>
 		<div class="nav-content">
 			<ul class="nav-list">
 				<?php
