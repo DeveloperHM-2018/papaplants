@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 $config['base_url'] = 'http://localhost/papaplants/';
-// $config['base_url'] = 'https://wpsenders.com/papa_plants/';
+// $config['base_url'] = 'https://www.papaplants.com/';
 
 $config['index_page'] = '';
 
