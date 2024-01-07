@@ -112,6 +112,6 @@ date_default_timezone_set("Asia/Kolkata");
 define('APP_NAME', 'PAPA PLANTS');
 define('APP_NAME_TITLE', 'PAPA PLANTS | Fresh Plants in Bhopal, Madhya Pradesh');
 
-define('SMALL_LOGO', 'assets/images/favicon.png');
+define('SMALL_LOGO', base_url().'assets/images/favicon.png');
 
 define('OTP_ENABLE', false);
