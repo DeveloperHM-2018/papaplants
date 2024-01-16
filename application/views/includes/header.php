@@ -4,6 +4,34 @@
 <?php $this->load->view('includes/header-link'); ?>
 
 <body>
+	<div class="search-overlay"></div>
+	<div class="productSearchResult pb-3">
+		<div onclick="CloseproductSearchResult()" style="text-align: right;
+	margin-right: 45px;
+	font-size: 20px;
+	padding-top: 15px;"><i class="fa fa-times"></i></div>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-10 py-4">
+					<h3 class="title text-center">Start typing and hit Enter</h3>
+				</div>
+				<div class="col-md-10">
+					<form action="<?= base_url('product') ?>" action="" class="header-form productSearchWrapper pop">
+
+						<input placeholder="Enter Product Name..." type="text" name="headerSearchBox">
+						<button type="submit"><i class="fas fa-search"></i></button>
+					</form>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<ul class="searchProductListWrapper pt-3 pb-3  pr-2 custom-scroll">
+						<p>You must enter at least 2 characters.</p>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="backdrop"></div>
 	<a class="backtop fas fa-arrow-up" href="#"></a>
 	<div class="header-top">
@@ -30,40 +58,40 @@
 				<div class="header-media-group"><button class="header-user">
 						<i class="fas fa-bars"></i></button>
 					<a href="<?= base_url() ?>">
-						<img src="<?= base_url().SMALL_LOGO ?>" alt="Papa Plants"></a><button class="header-src"><i class="fas fa-search"></i></button>
+						<img src="<?= base_url() . SMALL_LOGO ?>" alt="Papa Plants"></a><button class="header-src"><i
+							class="fas fa-search"></i></button>
 				</div>
-				<a href="<?= base_url() ?>" class="header-logo"><img src="<?= base_url().SMALL_LOGO ?>" alt="Papa Plants"></a>
+				<a href="<?= base_url() ?>" class="header-logo"><img src="<?= base_url() . SMALL_LOGO ?>"
+						alt="Papa Plants"></a>
 				<?php
-				if ($this->session->has_userdata('login_user_id')) :
-				?>
+				if ($this->session->has_userdata('login_user_id')):
+					?>
 					<a href="<?= base_url('orders') ?>" class="header-widget" title="My Account">
-						<img src="<?= base_url() ?>assets/images/user.png" alt="user"><span><?= $this->profile[0]['name'] ?></span></a>
-				<?php
-				else :
-				?>
-					<a href="<?= base_url('login') ?>" class="header-widget" title="My Account"><img src="<?= base_url() ?>assets/images/user.png" alt="user"><span>Login</span></a>
-				<?php
+						<img src="<?= base_url() ?>assets/images/user.png" alt="user"><span>
+							<?= $this->profile[0]['name'] ?>
+						</span></a>
+					<?php
+				else:
+					?>
+					<a href="<?= base_url('login') ?>" class="header-widget" title="My Account"><img
+							src="<?= base_url() ?>assets/images/user.png" alt="user"><span>Login</span></a>
+					<?php
 				endif;
 				?>
-				<form action="<?= base_url('product') ?>" action="" class="header-form">
-					<input placeholder="Enter Product Name..." type="text" name="searchbox" list="browsers" id="browser">
-					<datalist id="browsers">
-						<?php
-						$products = getAllRow('product');
-						if (!empty($products)) {
-							foreach ($products as $products_row) {
-						?>
-								<option value="<?= strtoupper($products_row['product_name']); ?>"><?= strtoupper($products_row['product_name']); ?></option>
-						<?php
-							}
-						}
-						?>
-					</datalist><button type="submit"><i class="fas fa-search"></i></button>
+				<form action="<?= base_url('product') ?>" action="" class="header-form productSearchWrapper">
+
+					<input placeholder="Enter Product Name..." type="text" name="searchbox">
+					<button type="submit"><i class="fas fa-search"></i></button>
 				</form>
 				<div class="header-widget-group">
-					<button class="header-widget header-cart" title="Cartlist"><i class="fas fa-shopping-basket"></i><sup>
-							<p class="totalitem"><?= $this->cart->total_items(); ?></p>
-						</sup><span>total price<small class="totalamount">₹<?php echo $this->cart->format_number($this->cart->total()); ?></small></span></button>
+					<button class="header-widget header-cart" title="Cartlist"><i
+							class="fas fa-shopping-basket"></i><sup>
+							<p class="totalitem">
+								<?= $this->cart->total_items(); ?>
+							</p>
+						</sup><span>total price<small class="totalamount">₹
+								<?php echo $this->cart->format_number($this->cart->total()); ?>
+							</small></span></button>
 				</div>
 			</div>
 		</div>
@@ -79,8 +107,9 @@
 							$category = getRowById('tbl_category', 'featured', '1');
 							if (!empty($category)) {
 								foreach ($category as $category_row) {
-							?>
-									<li class="navbar-item dropdown"><a class="navbar-link dropdown-arrow" href="<?= base_url() ?>product?category=<?= encryptId($category_row['category_id']); ?>&&<?= url_title($category_row['category_name']); ?>">
+									?>
+									<li class="navbar-item dropdown"><a class="navbar-link dropdown-arrow"
+											href="<?= base_url() ?>product?category=<?= encryptId($category_row['category_id']); ?>&&<?= url_title($category_row['category_name']); ?>">
 											<?= $category_row['category_name']; ?>
 										</a>
 										<?php
@@ -88,16 +117,18 @@
 										if (!empty($subcate)) {
 											echo ' <ul class="dropdown-position-list">';
 											foreach ($subcate as $subcate_row) {
-										?>
-									<li><a href="<?= base_url() ?>product?subcate=<?= encryptId($subcate_row['sub_category_id']); ?>&&<?= url_title($subcate_row['sub_category_name']); ?>">
-											<?= $subcate_row['sub_category_name'] ?></a>
-									</li>
-							<?php
+												?>
+											<li><a
+													href="<?= base_url() ?>product?subcate=<?= encryptId($subcate_row['sub_category_id']); ?>&&<?= url_title($subcate_row['sub_category_name']); ?>">
+													<?= $subcate_row['sub_category_name'] ?>
+												</a>
+											</li>
+											<?php
 											}
 											echo '</ul>';
 										} ?>
-							</li>
-					<?php
+									</li>
+									<?php
 								}
 							} ?>
 						</ul>
@@ -118,20 +149,23 @@
 	</nav>
 	<aside class="cart-sidebar">
 		<div class="cart-header">
-			<div class="cart-total"><i class="fas fa-shopping-basket"></i> total item &nbsp;<span class="totalitem"> ( <?= $this->cart->total_items(); ?>)</span></div>
+			<div class="cart-total"><i class="fas fa-shopping-basket"></i> total item &nbsp;<span class="totalitem"> (
+					<?= $this->cart->total_items(); ?>)
+				</span></div>
 			<button class="cart-close"><i class="icofont-close"></i></button>
 		</div>
 		<div id="cart"></div>
 	</aside>
 	<aside class="nav-sidebar">
-		<div class="nav-header"><a href="#"><img src="<?= base_url().SMALL_LOGO ?>" alt="logo"></a><button class="nav-close"><i class="icofont-close"></i></button></div>
+		<div class="nav-header"><a href="#"><img src="<?= base_url() . SMALL_LOGO ?>" alt="logo"></a><button
+				class="nav-close"><i class="icofont-close"></i></button></div>
 		<div class="nav-content">
 			<ul class="nav-list">
 				<?php
-				$category =	getAllRow('tbl_category');
+				$category = getAllRow('tbl_category');
 				if (!empty($category)) {
 					foreach ($category as $category_row) {
-				?>
+						?>
 						<li><a class="nav-link dropdown-link" href="#">
 								<?= $category_row['category_name']; ?>
 							</a>
@@ -140,19 +174,21 @@
 							if (!empty($subcate)) {
 								echo ' <ul class="dropdown-list">';
 								foreach ($subcate as $subcate_row) {
-							?>
-						<li><a href="<?= base_url() ?>product?subcate=<?= encryptId($subcate_row['sub_category_id']); ?>&&<?= url_title($subcate_row['sub_category_name']); ?>">
-								<?= $subcate_row['sub_category_name'] ?></a>
-						</li>
-				<?php
+									?>
+								<li><a
+										href="<?= base_url() ?>product?subcate=<?= encryptId($subcate_row['sub_category_id']); ?>&&<?= url_title($subcate_row['sub_category_name']); ?>">
+										<?= $subcate_row['sub_category_name'] ?>
+									</a>
+								</li>
+								<?php
 								}
 								echo '</ul>';
 							} ?>
-				</li>
-		<?php
+						</li>
+						<?php
 					}
 				} ?>
-		<li><a class="nav-link" href="<?= base_url('logout') ?>"><i class="icofont-logout"></i>logout</a></li>
+				<li><a class="nav-link" href="<?= base_url('logout') ?>"><i class="icofont-logout"></i>logout</a></li>
 			</ul>
 			<div class="nav-info-group">
 				<div class="nav-info"><i class="icofont-ui-touch-phone"></i>
@@ -165,25 +201,34 @@
 				</div>
 			</div>
 			<div class="nav-footer">
-				<p>All Rights Reserved by <a href="<?= base_url() ?>"><?= APP_NAME ?></a></p>
+				<p>All Rights Reserved by <a href="<?= base_url() ?>">
+						<?= APP_NAME ?>
+					</a></p>
 			</div>
 		</div>
 	</aside>
 	<div class="mobile-menu">
 		<a href="<?= base_url() ?>" title="Home Page"><i class="fas fa-home"></i><span>Home</span></a>
-		<a href="<?= base_url('product') ?>" class="cate-btn" title="Category List"><i class="fas fa-list"></i><span>All Products</span></a>
-		<button class="cart-btn" title="Cartlist"><i class="fas fa-shopping-basket"></i><span>cartlist</span><sup class="totalitem"><?= $this->cart->total_items(); ?>+</sup></button>
+		<a href="<?= base_url('product') ?>" class="cate-btn" title="Category List"><i class="fas fa-list"></i><span>All
+				Products</span></a>
+		<button class="cart-btn" title="Cartlist"><i class="fas fa-shopping-basket"></i><span>cartlist</span><sup
+				class="totalitem">
+				<?= $this->cart->total_items(); ?>+
+			</sup></button>
 		<?php
 		if ($this->session->has_userdata('login_user_id')) {
-		?>
+			?>
 			<a href="<?= base_url('orders'); ?>"><i class="fas fa-shopping-bag"></i><span>Orders</span></a>
 			<a href="<?= base_url('profile') ?>"><i class="fas fa-user"></i><span>My Account</span></a>
-		<?php
+			<?php
 		} else {
-		?>
+			?>
 			<a href="<?= base_url('login') ?>"><i class="fas fa-sign-out-alt"></i><span>Sign In</span></a>
 			<a href="<?= base_url('register') ?>"> <i class="fas fa-user"></i><span>Register </span></a>
-		<?php
+			<?php
 		}
 		?>
 	</div>
+
+
+	<!-- === product search results === -->

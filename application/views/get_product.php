@@ -11,7 +11,7 @@ if ($all_data != '') {
 } ?>
 
 <script>
-  $(".action-plus").on("click", function() {
+  $(".action-plus").on("click", function () {
     var e = $(this).closest(".product-action").children(".action-input").get(0);
     var currentValue = parseInt(e.value);
     e.value = currentValue + 1;
@@ -22,7 +22,7 @@ if ($all_data != '') {
     }
   });
 
-  $(".action-minus").on("click", function() {
+  $(".action-minus").on("click", function () {
     var inputElement = $(this).closest(".product-action").children(".action-input").get(0);
     var currentValue = parseInt(inputElement.value);
     if (currentValue > 1) {

@@ -29,7 +29,7 @@ class UserHome extends CI_Controller
         $cateid = $this->input->get('category');
         $data['cateid'] = decryptId($cateid);
         $data['search'] = $this->input->get('searchbox');
-        $subcate  = $this->input->get('subcate');
+        $subcate = $this->input->get('subcate');
         $data['subcateid'] = decryptId($subcate);
         $data['sidecategory'] = $this->CommonModel->getAllRowsInOrder('category', 'category_id', 'ASC');
         $data['subcategory'] = $this->CommonModel->getAllRowsInOrder('sub_category', 'category_id', 'desc');
@@ -44,7 +44,7 @@ class UserHome extends CI_Controller
         $category = ((isset($_POST['category'])) ? $_POST['category'] : '');
         $subcategory = ((isset($_POST['subcategory'])) ? $_POST['subcategory'] : '');
         $query = "SELECT * FROM `tbl_product` WHERE `status` = '1'";
-        if (($search != '')  || ($category != '') || ($subcategory != '') || ($price != '')) {
+        if (($search != '') || ($category != '') || ($subcategory != '') || ($price != '')) {
             if ($search != '') {
                 $query .= " AND `product_name` LIKE '%" . trim($search) . "%'  OR `sale_price` LIKE '%" . trim($search) . "%' OR `description` LIKE '%" . trim($search) . "%'  ";
             }
@@ -79,8 +79,8 @@ class UserHome extends CI_Controller
     {
         $data['products_image'] = $this->CommonModel->getRowById('product_image', 'product_id', decryptId($id));
         $table = "tbl_product";
-        $data['details'] = $this->CommonModel->getRowById($table,  'product_id', decryptId($id))[0];
-        $data['title'] =  $data['details']['product_name'] . ' | ' . APP_NAME_TITLE;
+        $data['details'] = $this->CommonModel->getRowById($table, 'product_id', decryptId($id))[0];
+        $data['title'] = $data['details']['product_name'] . ' | ' . APP_NAME_TITLE;
         $this->load->view('product-details', $data);
     }
 
@@ -147,7 +147,7 @@ class UserHome extends CI_Controller
         }
     }
 
-    public function orderDetails($checkoutID  = true)
+    public function orderDetails($checkoutID = true)
     {
         if (!$this->session->has_userdata('login_user_id')) {
             redirect(base_url());
@@ -166,7 +166,7 @@ class UserHome extends CI_Controller
         echo json_encode($this->CommonModel->getRowById('tbl_promocode', 'promocode', $promocode));
     }
 
-    public function orderInvoice($checkoutID  = true)
+    public function orderInvoice($checkoutID = true)
     {
         if (!$this->session->has_userdata('login_user_id')) {
             redirect(base_url());
@@ -203,12 +203,12 @@ class UserHome extends CI_Controller
                 $address = $this->input->post('address');
                 $data = array('state' => $state, 'city' => $city, 'postal_code' => $postal_code, 'address' => $address);
                 $this->CommonModel->updateRowById('user_registration', 'user_id', $user_id, $data);
-                $orderId   = orderIdGenerateUser();
-                $postdata['order_id']  = $orderId;
+                $orderId = orderIdGenerateUser();
+                $postdata['order_id'] = $orderId;
                 $postdata['booking_date'] = setDateOnly();
                 $post = $this->CommonModel->insertRowReturnId('tbl_book_product', $postdata);
-                foreach ($this->cart->contents() as $items) :
-                    $mydata[]  = array(
+                foreach ($this->cart->contents() as $items):
+                    $mydata[] = array(
                         'create_date' => setDateTime(),
                         'order_id' => $orderId,
                         'no_of_items' => $items['qty'],
@@ -220,9 +220,45 @@ class UserHome extends CI_Controller
                 endforeach;
                 $insert2 = $this->CommonModel->insertRowInBatch('tbl_book_item', $mydata);
                 if ($post != '') {
-                    if ($this->input->post('payment_mode') == '1') {
+                    if ($this->input->post('paymentMethod') == 'cod') {
                         redirect(base_url('booking-status'));
                         exit();
+                    } else {
+                        $data['name'] = $postdata['name'];
+                        $data['email_id'] = $postdata['email_id'];
+                        $data['contact_no'] = $postdata['contact_no'];
+                        $data['payment_title'] = 'Payment';
+                        $data['payment_description'] = 'Package Desc';
+                        $data['payment_amount'] = $postdata['final_amount'];
+                        $data['order_id'] = 'ORD1112233';
+                        $data['redirect_url'] = 'http://xyz.com/return';
+
+                        $post_json = json_encode($data);
+                        $encrypt_payload = base64_encode($post_json);
+
+                        $hash = hash('sha256', $encrypt_payload . "/pay" . pgHash()) . '###';
+
+                        $headers = array(
+                            "X-VERIFY: $hash"
+                        );
+
+                        $data['api_key'] = pgKey();
+
+                        $curl = curl_init();
+                        curl_setopt($curl, CURLOPT_URL, 'https://payment.webangeltech.com/paymentInitiate');
+                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+                        curl_setopt($curl, CURLOPT_HEADER, false);
+                        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+                        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+                        curl_setopt($curl, CURLOPT_POST, 1);
+                        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+                        $response = curl_exec($curl);
+                        curl_close($curl);
+
+                        $check_resp = json_decode($response, true);
+
+                        print_r($response);
                     }
                 } else {
                     echo 'Check Form Data';
@@ -300,5 +336,20 @@ class UserHome extends CI_Controller
     {
         $data['title'] = 'About Us - ' . APP_NAME_TITLE;
         $this->load->view('about', $data);
+    }
+
+    public function headerSearch()
+    {
+        $search = ((isset($_POST['search'])) ? $_POST['search'] : '');
+        $query = "SELECT * FROM `tbl_product` WHERE `status` = '1'";
+        if (($search != '')) {
+            if ($search != '') {
+                $query .= " AND `product_name` LIKE '%" . trim($search) . "%'  OR `sale_price` LIKE '%" . trim($search) . "%' OR `description` LIKE '%" . trim($search) . "%'  ";
+            }
+        }
+        //  echo $query;
+        $data['searchData'] = $this->CommonModel->runQuery($query);
+        // print_r($data['all_data']);
+        $this->load->view('searchData', $data);
     }
 }

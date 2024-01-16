@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-$active_group = 'default';
+$active_group = 'server';
 $query_builder = TRUE;
 
 $db['default'] = array(
@@ -10,7 +10,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'papaplants_new',
+	'database' => 'papaplants',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'tbl_',
 	'pconnect' => FALSE,
