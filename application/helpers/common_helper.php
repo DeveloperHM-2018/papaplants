@@ -1,4 +1,5 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
 
 function setDateTime()
 {
@@ -284,7 +285,7 @@ function sendOTP($contact_no, $message, $route = 1)
 	$dataArray['message'] = $message;
 
 	$ch = curl_init();
-	$url =  "https://www.wpsenders.com/api/sendOTPMessage";
+	$url = "https://www.wpsenders.com/api/sendOTPMessage";
 	$getUrl = $url;
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
@@ -526,7 +527,7 @@ function compressImage($file, $path, $temp_file_name)
 	$image_parts = explode(";base64,", $file);
 	$image_base64 = base64_decode($image_parts[1]);
 	$file_name = uniqid() . '.png';
-	$aadhaarB =  $path . $file_name;
+	$aadhaarB = $path . $file_name;
 	file_put_contents($aadhaarB, $image_base64);
 	if ($temp_file_name != "") {
 		unlink($path . $temp_file_name);
@@ -537,7 +538,7 @@ function compressImage($file, $path, $temp_file_name)
 function curlResponse($url, $dataArray)
 {
 	$ch = curl_init();
-	$url =  $url;
+	$url = $url;
 	$data = http_build_query($dataArray);
 	$getUrl = $url . "?" . $data;
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -558,7 +559,7 @@ function multi_array_in_search($column, $id, $array)
 	if (!empty($array)) {
 		$i = 0;
 		foreach ($array as $key => $val) {
-			$val['total_user'] =  ++$i;
+			$val['total_user'] = ++$i;
 			if ($val[$column] === $id) {
 				return $val;
 			}
@@ -583,15 +584,15 @@ function setImage($image_nm, $location)
 
 function mailmsg($to, $subject, $message)
 {
-	$config['protocol']    = 'smtp';
+	$config['protocol'] = 'smtp';
 	$config['smtp_crypto'] = 'ssl';
-	$config['smtp_host']    = 'mail.kisangreens.com';
-	$config['smtp_port']    = '465';
+	$config['smtp_host'] = 'mail.kisangreens.com';
+	$config['smtp_port'] = '465';
 	$config['smtp_timeout'] = '8';
-	$config['smtp_user']    = 'info@kisangreens.com';
-	$config['smtp_pass']    = 'Sagar@11';
-	$config['charset']    = 'utf-8';
-	$config['newline']    = "\n";
+	$config['smtp_user'] = 'info@kisangreens.com';
+	$config['smtp_pass'] = 'Sagar@11';
+	$config['charset'] = 'utf-8';
+	$config['newline'] = "\n";
 	$config['mailtype'] = 'html';
 	$config['validation'] = TRUE;
 
@@ -604,4 +605,13 @@ function mailmsg($to, $subject, $message)
 	$ci->email->subject($subject);
 	$ci->email->message($message);
 	$ci->email->send();
+}
+
+function pgKey()
+{
+	return 'KBSNJPR8Z73GIWHUOYE59TVMC';
+}
+function pgHash()
+{
+	return 'PL3T82U4GDWVBCI';
 }

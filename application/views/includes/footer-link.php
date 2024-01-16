@@ -14,6 +14,51 @@
 
 <div id="snackbar">Item Added Successfully</div>
 <script>
+
+let productSearchBox = document.querySelector('[name="searchbox"]');
+let productSearchResult = document.querySelector('.productSearchResult');
+let searchOverlay = document.querySelector('.search-overlay');
+
+function CloseproductSearchResult()
+{
+  productSearchResult.classList.remove('show');
+  searchOverlay.classList.remove('show');
+}
+
+searchOverlay.addEventListener('click', function(e){
+  CloseproductSearchResult();
+});
+
+productSearchBox.addEventListener('click', function(e) {
+  productSearchResult.classList.add('show');
+  searchOverlay.classList.add('show');
+	});
+
+  let headerSearchBox = document.querySelector('[name="headerSearchBox"]');
+  let showsearhResults = document.querySelector('.searchProductListWrapper')
+	headerSearchBox.addEventListener('keyup', function (e) {
+    let searchQuery = e.target.value;
+    if(searchQuery.length >= 2){
+      console.log(searchQuery)
+      $.ajax({
+            url: "<?= base_url('UserHome/headerSearch') ?>",
+            method: "POST",
+            data: {
+                search: searchQuery
+            },
+            beforeSend: function()
+            {
+              showsearhResults.innerHTML = `<div class="progress"></div>`;
+            },
+            success: function(data) {
+                showsearhResults.innerHTML = data;
+                // console.log(data);
+            }
+        });
+    }else{
+      console.log("min char 2")
+    }
+	});
   function fetchdata() {
     $.ajax({
       url: '<?= base_url("Shop/fetch_cart") ?>',

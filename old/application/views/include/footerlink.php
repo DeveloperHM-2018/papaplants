@@ -20,6 +20,7 @@
 <script src="<?= base_url() ?>/assets/js/loginscript.js"></script>
 <script src="<?= base_url() ?>/assets/ecommerce/cart.js"></script>
 <script>
+
 	$('.carousel').carousel({
 		interval: 2000
 	})
