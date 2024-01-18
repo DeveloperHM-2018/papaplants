@@ -396,7 +396,7 @@ function imageUpload($imageName, $path, $temp_image)
 	}
 	$ci = &get_instance();
 	$config['file_name'] = uniqid();
-	$config['allowed_types'] = 'jpg|png|jpeg';
+	$config['allowed_types'] = '*';
 	$config['upload_path'] = $path;
 	$target_path = $path;
 	$config['remove_spaces'] = true;
@@ -435,7 +435,7 @@ function imageUploadWithRatio($imageName, $path, $width, $height, $temp_image)
 	}
 	$ci = &get_instance();
 	$config['file_name'] = uniqid();
-	$config['allowed_types'] = 'jpg|png|jpeg';
+	$config['allowed_types'] = '*';
 	$config['upload_path'] = $path;
 	$target_path = $path;
 	$config['remove_spaces'] = true;

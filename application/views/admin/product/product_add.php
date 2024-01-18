@@ -141,13 +141,13 @@
                                                                 <img src="<?= base_url("upload/product/") . $imgData ?>" style="width: 100%;height: 180px; margin-top: 10px">
                                                                 <div style="margin-top: 10px; text-align: center">
                                                                     <?php
-                                                                    if ($numImage != 1) {
+                                                                    // if ($numImage != 1) {
                                                                     ?>
                                                                         <a class="btn btn-danger" style="margin-right: 5px" onclick="return confirm('Are you sure to delete this image?')" href="<?= base_url("productImageD/$imgId/$imgData") ?>">
                                                                             <i class="fa fa-trash"></i> Delete
                                                                         </a>
                                                                     <?php
-                                                                    }
+                                                                    // }
                                                                     ?>
                                                                 </div>
                                                             </div>
